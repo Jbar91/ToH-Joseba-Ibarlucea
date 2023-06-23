@@ -2,38 +2,67 @@ import { Component, OnInit } from '@angular/core';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { CategoriesService } from '../services/categories.service';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.css']
+  styleUrls: ['./heroes.component.css'],
 })
 export class HeroesComponent implements OnInit {
   heroes: Hero[] = [];
+  categories: Array<string> = ['-Display All-', 'Mutant', 'Flyer', 'Psychic'];
 
-  constructor(private heroService: HeroService) { }
+  constructor(
+    private heroService: HeroService,
+    protected categoriesService: CategoriesService
+  ) {}
 
   ngOnInit(): void {
-    this.getHeroes();
+    this.getHeroesInfo();
   }
 
-  getHeroes(): void {
-    this.heroService.getHeroes()
-    .subscribe(heroes => this.heroes = heroes);
+  getHeroesInfo() {
+    return this.categoriesService.getHeroesInfo().subscribe((heroes) => {
+      this.heroes = heroes;
+      this.categoriesService.heroesInfo$.next(this.heroes);
+    });
   }
 
-  add(name: string): void {
+  getHeroOptions() {
+    this.categoriesService.getHeroesInfo().subscribe((heroes) => {
+      this.heroes = heroes;
+    });
+  }
+
+  add(name: string, category: string): void {
     name = name.trim();
-    if (!name) { return; }
-    this.heroService.addHero({ name } as Hero)
-      .subscribe(hero => {
-        this.heroes.push(hero);
-      });
+    if (!name) {
+      return;
+    }
+
+    if (category === '-Display All-') {
+      return;
+    }
+
+    this.heroService.addHero({ name, category } as Hero).subscribe((hero) => {
+      this.categoriesService.heroesInfo$.next([...this.heroes, hero]);
+    });
   }
 
   delete(hero: Hero): void {
-    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroes = this.heroes.filter((h) => h !== hero);
+    this.categoriesService.heroesInfo$.next(this.heroes);
     this.heroService.deleteHero(hero.id).subscribe();
   }
 
+  filterHeroes(category: string) {
+    if (category === '-Display All-') {
+      this.getHeroesInfo();
+    } else {
+      this.getHeroOptions();
+      this.heroes = this.heroes.filter((hero) => hero.category === category);
+      this.categoriesService.heroesInfo$.next(this.heroes);
+    }
+  }
 }
