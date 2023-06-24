@@ -4,7 +4,6 @@ import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 import { CategoriesService } from '../services/categories.service';
 import { MessageService } from '../message.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-heroes',
