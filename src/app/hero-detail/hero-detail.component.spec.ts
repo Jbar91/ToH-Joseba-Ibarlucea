@@ -63,8 +63,12 @@ describe('Given HeroDetailComponent', () => {
   describe('When ngOnInit is called', () => {
     it('should call getHero', () => {
       const getHero = spyOn(component, 'getHero');
+      const heroesInfo = categoriesService.getHeroesInfo;
+
       component.ngOnInit();
+
       expect(getHero).toHaveBeenCalled();
+      expect(heroesInfo).toHaveBeenCalled();
     });
   });
 
