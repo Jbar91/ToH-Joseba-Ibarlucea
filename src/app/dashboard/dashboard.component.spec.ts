@@ -1,26 +1,33 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { of } from 'rxjs';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HeroSearchComponent } from '../hero-search/hero-search.component';
-import { HeroService } from '../hero.service';
-import { HEROESID } from '../mock-heroes';
+import { HEROESINFO } from '../mock-heroes';
 
 import { DashboardComponent } from './dashboard.component';
+import { CategoriesService } from '../services/categories.service';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
-  let heroService;
+  let categoriesService;
   let getHeroesSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(() => {
-    heroService = jasmine.createSpyObj('HeroService', ['getHeroes']);
-    getHeroesSpy = heroService.getHeroes.and.returnValue(of(HEROESID));
+    categoriesService = jasmine.createSpyObj('CategoriesService', [
+      'getHeroesInfo',
+    ]);
+    getHeroesSpy = categoriesService.getHeroesInfo.and.returnValue(
+      of(HEROESINFO)
+    );
     TestBed.configureTestingModule({
       declarations: [DashboardComponent, HeroSearchComponent],
-      imports: [RouterModule.forRoot([])],
-      providers: [{ provide: HeroService, useValue: heroService }],
+      imports: [RouterModule.forRoot([]), HttpClientTestingModule],
+      providers: [
+        { provide: CategoriesService, useValue: categoriesService },
+        { provide: HttpClientTestingModule, useValue: HttpClientTestingModule },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
@@ -38,7 +45,7 @@ describe('DashboardComponent', () => {
     );
   });
 
-  it('should call heroService', waitForAsync(() => {
+  it('should call categoriesService', waitForAsync(() => {
     expect(getHeroesSpy.calls.any()).toBe(true);
   }));
 
