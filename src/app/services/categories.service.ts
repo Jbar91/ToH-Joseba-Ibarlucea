@@ -28,8 +28,13 @@ export class CategoriesService {
     return this.http.get<Hero[]>(this.heroesUrl).pipe(
       map((heroesCategories) => {
         heroesCategories.map((hero, index) => {
-          this.heroes[index].category = hero.category;
-          this.heroes[index].name = hero.name;
+          if (!this.heroes[index].category) {
+            this.heroes[index].category = hero.category;
+          }
+
+          if (!this.heroes[index].name) {
+            this.heroes[index].name = hero.name;
+          }
         });
         return this.heroes;
       }),
@@ -49,6 +54,6 @@ export class CategoriesService {
   }
 
   private log(message: string) {
-    this.messageService.add(`HeroService: ${message}`);
+    this.messageService.add(`CategoriesService: ${message}`);
   }
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 import { CategoriesService } from '../services/categories.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-heroes',
@@ -15,7 +16,8 @@ export class HeroesComponent implements OnInit {
 
   constructor(
     private heroService: HeroService,
-    protected categoriesService: CategoriesService
+    protected categoriesService: CategoriesService,
+    protected messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -38,15 +40,17 @@ export class HeroesComponent implements OnInit {
   add(name: string, category: string): void {
     name = name.trim();
     if (!name) {
-      return;
+      return this.log('Please enter a name');
     }
 
     if (category === '-Display All-') {
-      return;
+      return this.log('Please select a category');
     }
 
     this.heroService.addHero({ name, category } as Hero).subscribe((hero) => {
-      this.categoriesService.heroesInfo$.next([...this.heroes, hero]);
+      this.heroes.push(hero);
+      this.categoriesService.heroesInfo$.next([...this.heroes]);
+      this.filterHeroes(category);
     });
   }
 
@@ -64,5 +68,9 @@ export class HeroesComponent implements OnInit {
       this.heroes = this.heroes.filter((hero) => hero.category === category);
       this.categoriesService.heroesInfo$.next(this.heroes);
     }
+  }
+
+  log(message: string) {
+    this.messageService.add(`HeroesComponent: ${message}`);
   }
 }
