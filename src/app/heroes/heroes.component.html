@@ -4,14 +4,22 @@
   <label for="new-hero">Hero name: </label>
   <input id="new-hero" #heroName />
 
+  <label for="hero-category">Category:
+    <select name="hero-category" #heroCategory (change)="filterHeroes(heroCategory.value)">
+      <option *ngFor="let category of categories" [value]="category">
+        {{category}}
+      </option>
+    </select>
+  </label>
+
   <!-- (click) passes input value to add() and then clears the input -->
-  <button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''">
+  <button type="button" class="add-button" (click)="add(heroName.value, heroCategory.value); heroName.value=''">
     Add hero
   </button>
 </div>
 
 <ul class="heroes">
-  <li *ngFor="let hero of heroes">
+  <li *ngFor="let hero of categoriesService.heroesInfo$ | async">
     <a routerLink="/detail/{{hero.id}}">
       <span class="badge">{{hero.id}}</span> {{hero.name}} -
       <span class="category">
