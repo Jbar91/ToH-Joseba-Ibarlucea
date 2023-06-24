@@ -90,9 +90,8 @@ describe('Given HeroesComponent', () => {
     });
 
     it('Should render the available heroes list', () => {
-      const { debugElement } = fixture;
-      const { nativeElement } = debugElement;
-      const heroes = nativeElement.querySelectorAll('li');
+      const compiled = fixture.nativeElement;
+      const heroes = compiled.querySelectorAll('li');
 
       component.getHeroesInfo();
 
