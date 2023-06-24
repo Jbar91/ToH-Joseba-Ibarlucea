@@ -3,7 +3,16 @@
   <div><span>id: </span>{{hero.id}}</div>
   <div>
     <label for="hero-name">Hero name: </label>
-    <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name"/>
+    <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name" />
+  </div>
+  <div>
+    <label for="hero-category">Hero Category:</label>
+    <select name="hero-category" [(ngModel)]="hero.category">
+      <option *ngFor="let category of categories" [value]="category">
+        {{category}}
+      </option>
+    </select>
+
   </div>
   <button type="button" (click)="goBack()">go back</button>
   <button type="button" (click)="save()">save</button>
