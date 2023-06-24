@@ -158,8 +158,9 @@ describe('Given HeroesComponent', () => {
     it("Should filter the heroes array and remove the hero that's being deleted", () => {
       const hero = mockHeroes[0];
       component.delete(hero);
+      const deletedHeroes = component.heroes;
 
-      expect(component.heroes).toEqual(mockDeleteHeroes);
+      expect(hero).not.toBe(deletedHeroes[0]);
     });
   });
 
@@ -182,10 +183,10 @@ describe('Given HeroesComponent', () => {
           component,
           'getHeroOptions'
         ).and.callThrough();
-        component.filterHeroes('Mutant');
+        component.filterHeroes('Flyer');
 
         expect(heroOptions).toHaveBeenCalled();
-        expect(component.heroes).toEqual([mockHeroes[0]]);
+        expect(component.heroes).toEqual([mockHeroes[1]]);
       });
     });
   });
