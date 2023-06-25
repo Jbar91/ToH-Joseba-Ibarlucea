@@ -92,3 +92,7 @@ button.delete:hover {
 .category {
   font-size: 0.8rem;
 }
+
+.hero-category {
+  display: block;
+}
