@@ -5,7 +5,6 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { of } from 'rxjs';
 import { mockAddHero, mockHeroes, mockIdHeroes } from 'src/mocks/test.mocks';
 import { Hero } from 'src/app/hero';
 
