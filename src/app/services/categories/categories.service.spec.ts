@@ -5,17 +5,13 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { MessageService } from '../message/message.service';
 import { HeroService } from '../hero/hero.service';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { mockHeroes, mockIdHeroes } from 'src/mocks/test.mocks';
 import { Hero } from 'src/app/hero';
 
 describe('CategoriesService', () => {
   let service: CategoriesService;
-  let messageService: MessageService;
-  let heroService: HeroService;
-  let http: HttpClientTestingModule;
   let controller: HttpTestingController;
 
   const mockHeroesService = {
@@ -33,9 +29,6 @@ describe('CategoriesService', () => {
       ],
     });
     service = TestBed.inject(CategoriesService);
-    messageService = TestBed.inject(MessageService);
-    heroService = TestBed.inject(HeroService);
-    http = TestBed.inject(HttpClientTestingModule);
     controller = TestBed.inject(HttpTestingController);
   });
 
