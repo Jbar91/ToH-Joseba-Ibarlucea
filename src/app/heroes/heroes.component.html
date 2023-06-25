@@ -4,7 +4,7 @@
   <label for="new-hero">Hero name: </label>
   <input id="new-hero" #heroName />
 
-  <label for="hero-category">Category:
+  <label for="hero-category" class="hero-category">Category:
     <select name="hero-category" #heroCategory (change)="filterHeroes(heroCategory.value)">
       <option *ngFor="let category of categories" [value]="category">
         {{category}}
