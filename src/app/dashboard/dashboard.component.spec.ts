@@ -6,7 +6,7 @@ import { HeroSearchComponent } from '../hero-search/hero-search.component';
 import { HEROESINFO } from '../mock-heroes';
 
 import { DashboardComponent } from './dashboard.component';
-import { CategoriesService } from '../services/categories.service';
+import { CategoriesService } from '../services/categories/categories.service';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
