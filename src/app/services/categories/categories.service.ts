@@ -27,7 +27,7 @@ export class CategoriesService {
 
     return this.http.get<Hero[]>(this.heroesUrl).pipe(
       map((heroesCategories) => {
-        heroesCategories.map((hero, index) => {
+        heroesCategories.forEach((hero, index) => {
           if (!this.heroes[index].category) {
             this.heroes[index].category = hero.category;
           }
