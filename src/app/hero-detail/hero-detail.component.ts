@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Hero } from '../hero';
-import { HeroService } from '../hero.service';
-import { CategoriesService } from '../services/categories.service';
+import { HeroService } from '../services/hero/hero.service';
+import { CategoriesService } from '../services/categories/categories.service';
 
 @Component({
   selector: 'app-hero-detail',

@@ -5,7 +5,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { HeroSearchComponent } from './hero-search.component';
-import { HeroService } from '../hero.service';
+import { HeroService } from '../services/hero/hero.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { mockHeroes } from 'src/mocks/test.mocks';

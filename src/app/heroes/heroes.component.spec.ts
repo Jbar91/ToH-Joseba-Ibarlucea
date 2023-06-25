@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeroesComponent } from './heroes.component';
-import { HeroService } from '../hero.service';
-import { CategoriesService } from '../services/categories.service';
-import { MessageService } from '../message.service';
+import { HeroService } from '../services/hero/hero.service';
+import { CategoriesService } from '../services/categories/categories.service';
+import { MessageService } from '../services/message/message.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BehaviorSubject, of } from 'rxjs';
